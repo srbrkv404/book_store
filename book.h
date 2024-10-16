@@ -4,13 +4,6 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
-#include <algorithm>
-
-// pravilo 5
-// razdelit na h i cpp
-// dobavit const & vezde
-// book.print() 
 
 
 class Book {
@@ -20,58 +13,27 @@ class Book {
     unsigned int _price;
 
     public:
-        Book (const std::string &title, const std::string &author, const unsigned int &year, const unsigned int &price);
-        
+        Book(const std::string &title, const std::string &author, const unsigned int &year, const unsigned int &price);
+        Book(const Book &other);
         Book& operator=(const Book &other);
+        Book(Book &&other) noexcept;
+        Book& operator=(Book &&other) noexcept;
 
-        std::string getTitle() const {
-            return _title;
-        }
-        std::string getAuthor() const {
-            return _author;
-        }
-        unsigned int getYear() const {
-            return _year;
-        }
-        unsigned int getPrice() const {
-            return _price;
-        }
+        bool operator==(const Book& other) const;
+        bool operator<(const Book& other) const;
+        bool operator>(const Book& other) const;
 
-        void setTitle(const std::string &title) {
-            _title = title;
-            return;
-        }
-        void setAuthor(const std::string &author) {
-            _author = author;
-            return;
-        }
-        void setYear(const unsigned int &year) {
-            _year = year;
-            return;
-        }
-        void setPrice(const unsigned int &price) {
-            _price = price;
-            return;
-        }
+        std::string getTitle() const;
+        std::string getAuthor() const;
+        unsigned int getYear() const;
+        unsigned int getPrice() const;
 
-        bool operator==(const Book& other) const {
-            return _title == other._title && _author == other._author && _year == other._year;
-        }
+        void setTitle(const std::string &title);
+        void setAuthor(const std::string &author);
+        void setYear(const unsigned int &year);
+        void setPrice(const unsigned int &price);
 
-        bool operator<(const Book& other) const {
-            if (_title != other._title) {
-                return _title < other._title;
-            }
-            if (_author != other._author) {
-                return _author < other._author;
-            }
-            return _year < other._year;
-        }
-
-        bool operator>(const Book& other) const {
-            return other < *this;
-        }
-
+        void print() const;
 };
 
 #endif 

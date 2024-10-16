@@ -10,13 +10,13 @@ int main() {
 
     try {
         while (true) {
-            std::cout << "Выберите опцию:" << std::endl;
-            std::cout << "1. Добавить книгу" << std::endl;
-            std::cout << "2. Удалить книгу" << std::endl;
-            std::cout << "3. Найти книгу по названию" << std::endl;
-            std::cout << "4. Показать все книги (сортировка по названию/автору/году издания)" << std::endl;
-            std::cout << "5. Найти книги в ценовом диапазоне" << std::endl;
-            std::cout << "6. Выйти" << std::endl << std::endl;
+            std::cout << "Choose the option:" << std::endl;
+            std::cout << "1. Add book" << std::endl;
+            std::cout << "2. Remove book" << std::endl;
+            std::cout << "3. Find book by title" << std::endl;
+            std::cout << "4. Show all books (sort by title/author/year of publication)" << std::endl;
+            std::cout << "5. Find books in price range" << std::endl;
+            std::cout << "6. Quit" << std::endl << std::endl;
 
             unsigned int option;
             std::cin >> option;
@@ -27,24 +27,22 @@ int main() {
                     std::string author;
                     unsigned int year;
                     unsigned int price;
-                    std::cout << "Введите название книги: ";
+                    std::cout << "Enter the book title: ";
                     std::cin >> title;
-                    std::cout << "Введите автора книги: ";
+                    std::cout << "Enter the book author: ";
                     std::cin >> author;
-                    std::cout << "Введите год издания: ";
+                    std::cout << "Enter the book year of publication: ";
                     std::cin >> year;
-                    std::cout << "Введите цену: ";
+                    std::cout << "Enter the book price: ";
                     std::cin >> price;
                     std::cout << std::endl;
                     Book book(title, author, year, price);
                     bookstore->addBook(book);
-                    std::cout << "Книга добавлена." << std::endl << std::endl;
-                    std::cout << book.getTitle() << " " << book.getAuthor() << std::endl;
                     break;
                 }
                 case 2: {
                     std::string title;
-                    std::cout << "Введите название книги: ";
+                    std::cout << "Enter the book title: ";
                     std::cin >> title;
                     std::cout << std::endl;
                     bookstore->removeBook(title);
@@ -52,20 +50,15 @@ int main() {
                 }
                 case 3: {
                     std::string title;
-                    std::cout << "Введите название книги: ";
+                    std::cout << "Enter the book title: ";
                     std::cin >> title;
                     std::cout << std::endl;
                     Book *book = bookstore->findBook(title);
-                    if (book == nullptr) {
-                        std::cout << "Такой книги не нашлось." << std::endl << std::endl;
-                    } else {
-                        std::cout << "Книга найдена." << std::endl << std::endl;
-                    }
                     break;
                 }
                 case 4: {
                     SortType sortType;
-                    std::cout << "Выберите тип сортировки:\n1. По названиям.\n2. По авторам.\n3. По году издания" << std:: endl;
+                    std::cout << "Choose the sort type:\n1. By title.\n2. By author.\n3. By year of publication" << std:: endl;
                     int sortNum;
                     std::cin >> sortNum;
                     switch (sortNum) {
@@ -79,35 +72,30 @@ int main() {
                             sortType = SortType::Year;
                             break;
                         default:
-                            break;
+                            std::cout << "Invalid sort type." << std::endl << std::endl;
+                            continue;
                     }
                     std::vector <Book> listBooks;
                     listBooks = bookstore->listBook(sortType);
                     for (const auto &book : listBooks) {
                         std::cout << "------------------" << std::endl;
-                        std::cout << book.getTitle() << std::endl;
-                        std::cout << book.getAuthor() << std::endl;
-                        std::cout << book.getYear() << std::endl;
-                        std::cout << book.getPrice() << std::endl;
+                        book.print();
                     }
                     std::cout << "------------------" << std::endl;
                     break;
                 }
                 case 5: {
                     unsigned int minPrice, maxPrice;
-                    std::cout << "Введите минимальную цену: ";
+                    std::cout << "Enter the minimal price: ";
                     std::cin >> minPrice;
-                    std::cout << std::endl << "Введите максимальную цену: ";
+                    std::cout << std::endl << "Enter the maximal price: ";
                     std::cin >> maxPrice;
                     std::cout << std::endl;
                     std::vector <Book> listBooks;
                     listBooks = bookstore->findBooksInPriceRange(minPrice, maxPrice);
                     for (const auto &book : listBooks) {
                         std::cout << "------------------" << std::endl;
-                        std::cout << book.getTitle() << std::endl;
-                        std::cout << book.getAuthor() << std::endl;
-                        std::cout << book.getYear() << std::endl;
-                        std::cout << book.getPrice() << std::endl;
+                        book.print();
                     }
                     std::cout << "------------------" << std::endl;
                     break;
