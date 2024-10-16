@@ -5,8 +5,7 @@
 #include "bookstore/book_store.h"
 
 int main() {
-    
-    BookStore *bookstore = BookStore::getInstance();
+    BookStore &bookstore = BookStore::getInstance();
 
     try {
         while (true) {
@@ -37,7 +36,7 @@ int main() {
                     std::cin >> price;
                     std::cout << std::endl;
                     Book book(title, author, year, price);
-                    bookstore->addBook(book);
+                    bookstore.addBook(book);
                     break;
                 }
                 case 2: {
@@ -45,7 +44,7 @@ int main() {
                     std::cout << "Enter the book title: ";
                     std::cin >> title;
                     std::cout << std::endl;
-                    bookstore->removeBook(title);
+                    bookstore.removeBook(title);
                     break;
                 }
                 case 3: {
@@ -53,12 +52,12 @@ int main() {
                     std::cout << "Enter the book title: ";
                     std::cin >> title;
                     std::cout << std::endl;
-                    Book *book = bookstore->findBook(title);
+                    Book *book = bookstore.findBook(title);
                     break;
                 }
                 case 4: {
                     SortType sortType;
-                    std::cout << "Choose the sort type:\n1. By title.\n2. By author.\n3. By year of publication" << std:: endl;
+                    std::cout << "Choose the sort type:\n1. By title.\n2. By author.\n3. By year of publication" << std::endl;
                     int sortNum;
                     std::cin >> sortNum;
                     switch (sortNum) {
@@ -76,7 +75,7 @@ int main() {
                             continue;
                     }
                     std::vector <Book> listBooks;
-                    listBooks = bookstore->listBook(sortType);
+                    listBooks = bookstore.listBook(sortType);
                     for (const auto &book : listBooks) {
                         std::cout << "------------------" << std::endl;
                         book.print();
@@ -92,7 +91,7 @@ int main() {
                     std::cin >> maxPrice;
                     std::cout << std::endl;
                     std::vector <Book> listBooks;
-                    listBooks = bookstore->findBooksInPriceRange(minPrice, maxPrice);
+                    listBooks = bookstore.findBooksInPriceRange(minPrice, maxPrice);
                     for (const auto &book : listBooks) {
                         std::cout << "------------------" << std::endl;
                         book.print();
@@ -111,6 +110,8 @@ int main() {
         std::cout << "Bad allocation of memory: " << error.what() << std::endl;
     } catch (const std::exception &e) {
         std::cout << "Something went wrong: " << e.what() << std::endl;
+    } catch (...) {
+        std::cout << "Something went wrong!" << std::endl;
     }
     return 0;
 }

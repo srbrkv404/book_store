@@ -1,18 +1,17 @@
+#pragma once
+
 #ifndef BOOKSTORE_H
 #define BOOKSTORE_H
 
 #include <vector>
-#include <new>
 #include <algorithm>
 #include "../book/book.h"
-
 
 enum class SortType {
     Title,
     Author,
     Year
 };
-
 
 class BookStore {
     std::vector <Book> _books;
@@ -23,9 +22,9 @@ class BookStore {
         BookStore(const BookStore &other) = delete;
         void operator=(const BookStore &other) = delete;
         
-        static BookStore* getInstance() {
+        static BookStore& getInstance() {
             static BookStore _bookstore;
-            return &_bookstore;
+            return _bookstore;
         }
         
         void addBook(const Book &book);
@@ -34,7 +33,6 @@ class BookStore {
 
         std::vector <Book> listBook(const SortType &sortType);
         std::vector <Book> findBooksInPriceRange(const unsigned int &minPrice, const unsigned int &maxPrice);
-
 };
 
 #endif

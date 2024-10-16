@@ -1,10 +1,10 @@
 #include "book.h"
 
-
 Book::Book(const std::string &title, const std::string &author, const unsigned int &year, const unsigned int &price) :
             _title(title), _author(author), _year(year), _price(price) {};
 
-Book::Book(const Book &other) : _title(other._title), _author(other._author), _year(other._year), _price(other._price) {};
+Book::Book(const Book &other) : _title(other._title), _author(other._author),
+            _year(other._year), _price(other._price) {};
 
 Book& Book::operator=(const Book &other) {
     if (this != &other) {
@@ -22,20 +22,17 @@ Book::Book(Book &&other) noexcept :
 
 Book& Book::operator=(Book &&other) noexcept {
     if (this != &other) {
-        _title = other._title;
-        other._title = "";
-        _author = other._author;
-        other._author = "";
-        _year = other._year;
-        other._year = 0;
-        _price = other._price;
-        other._price = 0;
+        _title = std::move(other._title);
+        _author = std::move(other._author);
+        _year = std::move(other._year);
+        _price = std::move(other._price);
     }
     return *this;
 }
 
 bool Book::operator==(const Book& other) const {
-    return _title == other._title && _author == other._author && _year == other._year;
+    return _title == other._title && _author == other._author
+        && _year == other._year && _price == other._price;
 }
 bool Book::operator<(const Book& other) const {
     if (_title != other._title) {
@@ -49,7 +46,6 @@ bool Book::operator<(const Book& other) const {
 bool Book::operator>(const Book& other) const {
     return other < *this;
 }
-
 
 std::string Book::getTitle() const {
     return _title;

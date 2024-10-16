@@ -1,10 +1,10 @@
+#pragma once
+
 #ifndef BOOK_H
 #define BOOK_H
 
-
 #include <iostream>
 #include <string>
-
 
 class Book {
     std::string _title;

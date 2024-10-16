@@ -2,7 +2,7 @@
 
 void BookStore::addBook(const Book &book) {
     _books.push_back(book);
-    std::cout << "Книга добавлена." << std::endl << std::endl;
+    std::cout << "Book has been added." << std::endl << std::endl;
 }
 void BookStore::removeBook(const std::string &title) {
     if (!_books.size()) {
@@ -14,7 +14,7 @@ void BookStore::removeBook(const std::string &title) {
     while (it != _books.end()) {
         if ((*it).getTitle() == title) {
             _books.erase(it);
-            std::cout << "Book removed." << std::endl;
+            std::cout << "Book has been removed." << std::endl;
             return;
         }
         it++;
@@ -37,7 +37,7 @@ Book * BookStore::findBook(const std::string &title) {
 
 std::vector <Book> BookStore::listBook(const SortType &sortType) {
     if (!_books.size()) {
-        std::cout << "Книг нет." << std::endl;
+        std::cout << "BookStore is empty." << std::endl;
         return _books;
     }
     std::vector <Book> sorted_books = _books;
@@ -61,7 +61,7 @@ std::vector <Book> BookStore::listBook(const SortType &sortType) {
                 [](const Book &a, const Book &b) {
                 return a.getYear() < b.getYear();
             }
-        );
+            );
             break;
         default:
             break;
