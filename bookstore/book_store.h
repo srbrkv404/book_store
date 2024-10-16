@@ -4,12 +4,8 @@
 #include <vector>
 #include <new>
 #include <algorithm>
-#include "book.h"
+#include "../book/book.h"
 
-
-// pravilo 5
-// razdelit na h i cpp
-// dobavit const &
 
 enum class SortType {
     Title,
